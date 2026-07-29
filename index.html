@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroBMI | Intelligent BMI Tracker & Health Planner</title>
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-normal">
+  <div class="background-decorations">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.42 4.58a10 10 0 1 1-14.84 0M12 2v10M12 12l4 4" />
+        </svg>
+        <span>AeroBMI</span>
+      </div>
+      <p class="subtitle">Intelligent Health Companion & Weight Tracker</p>
+    </header>
+
+    <main class="main-grid">
+      <!-- Calculator Column -->
+      <section class="card glass calculator-card">
+        <div class="card-header">
+          <h2>Calculate Your BMI</h2>
+          <div class="unit-toggle-container">
+            <button class="unit-btn active" id="unit-metric" data-unit="metric">Metric</button>
+            <button class="unit-btn" id="unit-imperial" data-unit="imperial">Imperial</button>
+          </div>
+        </div>
+
+        <form id="bmi-form" onsubmit="event.preventDefault();">
+          <!-- Demographics (Sex & Age) Section -->
+          <div class="demographics-grid">
+            <!-- Sex Selection -->
+            <div class="input-group-sub">
+              <label>Sex</label>
+              <div class="sex-toggle-container">
+                <button type="button" class="sex-btn active" id="sex-male" data-sex="male">Male</button>
+                <button type="button" class="sex-btn" id="sex-female" data-sex="female">Female</button>
+              </div>
+            </div>
+            
+            <!-- Age Selection -->
+            <div class="input-group-sub">
+              <div class="input-header-sub">
+                <label for="age-input">Age</label>
+                <div class="numeric-val-container">
+                  <input type="number" id="age-input" min="2" max="120" value="30" class="num-input">
+                  <span class="unit-label">yrs</span>
+                </div>
+              </div>
+              <div class="slider-wrapper-sub">
+                <input type="range" id="age-slider" min="2" max="120" value="30" class="custom-slider">
+              </div>
+            </div>
+          </div>
+
+          <!-- Height Section -->
+          <div class="input-group">
+            <div class="input-header">
+              <label for="height-slider">Height</label>
+              <div class="numeric-val-container">
+                <!-- Metric Height Input -->
+                <div class="metric-only flex-row">
+                  <input type="number" id="height-metric" min="100" max="250" value="175" class="num-input">
+                  <span class="unit-label">cm</span>
+                </div>
+                <!-- Imperial Height Input -->
+                <div class="imperial-only hidden flex-row">
+                  <input type="number" id="height-feet" min="3" max="8" value="5" class="num-input mini-input">
+                  <span class="unit-label mr-2">ft</span>
+                  <input type="number" id="height-inches" min="0" max="11" value="9" class="num-input mini-input">
+                  <span class="unit-label">in</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="slider-wrapper">
+              <input type="range" id="height-slider" min="100" max="250" value="175" class="custom-slider">
+              <div class="slider-ticks">
+                <span class="tick-min">100 cm</span>
+                <span class="tick-max">250 cm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weight Section -->
+          <div class="input-group">
+            <div class="input-header">
+              <label for="weight-slider">Weight</label>
+              <div class="numeric-val-container">
+                <!-- Metric Weight Input -->
+                <div class="metric-only flex-row">
+                  <input type="number" id="weight-metric" min="20" max="250" value="70" step="0.1" class="num-input">
+                  <span class="unit-label">kg</span>
+                </div>
+                <!-- Imperial Weight Input -->
+                <div class="imperial-only hidden flex-row">
+                  <input type="number" id="weight-imperial" min="40" max="550" value="154" step="0.1" class="num-input">
+                  <span class="unit-label">lbs</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="slider-wrapper">
+              <input type="range" id="weight-slider" min="20" max="250" value="70" step="0.5" class="custom-slider">
+              <div class="slider-ticks">
+                <span class="tick-min" id="weight-tick-min">20 kg</span>
+                <span class="tick-max" id="weight-tick-max">250 kg</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-container">
+            <button type="button" class="btn btn-primary" id="save-btn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
+              </svg>
+              Save Record
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Results Column -->
+      <section class="card glass results-card">
+        <div class="card-header center">
+          <h2>Your Results</h2>
+        </div>
+
+        <div class="results-visual">
+          <div class="gauge-container">
+            <!-- Semi-circular SVG Gauge -->
+            <svg class="gauge-svg" viewBox="0 0 200 120">
+              <defs>
+                <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#3b82f6" />      <!-- Underweight - Blue -->
+                  <stop offset="35%" stop-color="#10b981" />     <!-- Normal - Green -->
+                  <stop offset="70%" stop-color="#f59e0b" />     <!-- Overweight - Amber -->
+                  <stop offset="100%" stop-color="#ef4444" />    <!-- Obese - Red -->
+                </linearGradient>
+              </defs>
+              <!-- Base Track -->
+              <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="12" stroke-linecap="round" />
+              <!-- Color Gradient Track -->
+              <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="url(#gauge-grad)" stroke-width="12" stroke-linecap="round" opacity="0.3" />
+              <!-- Indicator Fill -->
+              <path id="gauge-fill" d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--accent-color)" stroke-width="12" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="251.3" />
+            </svg>
+            <div class="gauge-value-display">
+              <span class="bmi-num" id="bmi-val">22.9</span>
+              <span class="bmi-status" id="bmi-status">Normal Weight</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ideal-weight-panel">
+          <p class="ideal-label">Healthy Weight Range for your height:</p>
+          <p class="ideal-value" id="ideal-range">56.7 kg - 76.6 kg</p>
+        </div>
+
+        <!-- Dynamic Recommendation Section -->
+        <div class="recommendations-container" id="recommendations-box">
+          <div class="insight-badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            Personalized Guidance
+          </div>
+          <h3 id="insight-title">Healthy & Fit</h3>
+          <p id="insight-desc">You are in a healthy weight range. Maintaining this range reduces the risk of chronic cardiovascular issues.</p>
+          
+          <div class="insight-tips-grid">
+            <div class="tip-item">
+              <div class="tip-icon-wrapper nutrition-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+              <div class="tip-content">
+                <strong>Nutrition</strong>
+                <span id="tip-nutrition">Balanced diet rich in whole foods, lean proteins, and colorful vegetables.</span>
+              </div>
+            </div>
+            <div class="tip-item">
+              <div class="tip-icon-wrapper fitness-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v8H2zM6 1v7M14 1v7M10 1v7M6 16v7M14 16v7M10 16v7" />
+                </svg>
+              </div>
+              <div class="tip-content">
+                <strong>Exercise</strong>
+                <span id="tip-exercise">150 minutes of moderate cardiovascular workout weekly, plus strength training.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- History Section -->
+      <section class="card glass history-card full-width">
+        <div class="card-header">
+          <div class="header-title-wrapper">
+            <h2>Weight Tracker History</h2>
+            <span class="count-badge" id="history-count">0 Records</span>
+          </div>
+          <button class="btn btn-secondary btn-small" id="clear-history-btn">Clear All</button>
+        </div>
+
+        <div class="history-list-wrapper">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Age/Sex</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Calculated BMI</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody">
+              <!-- JS will inject logs here -->
+              <tr class="empty-state-row" id="empty-history-state">
+                <td colspan="7">
+                  <div class="empty-state">
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="8" x2="12" y2="12" />
+                      <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <p>No history entries yet. Calculate and save above to track your progress!</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>&copy; 2026 AeroBMI. Designed for health monitoring. Consult a medical professional for official clinical diagnostics.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
