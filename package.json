@@ -1,0 +1,23 @@
+{
+  "name": "scholarship-management-system",
+  "version": "1.0.0",
+  "description": "Full-stack Scholarship Management System with Jenkins CI/CD integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/api.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "keywords": [
+    "scholarship",
+    "management",
+    "jenkins",
+    "express",
+    "javascript"
+  ],
+  "author": "Nithish sankara narayanan S",
+  "license": "ISC"
+}
